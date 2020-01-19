@@ -7,6 +7,7 @@
 # was created for testing nginx installation in development    #
 # environment                                                  #
 ################################################################
+
 set -e
 set -u
 
@@ -18,8 +19,13 @@ network_state=$(ping -q -w1 -c1 google.com &>/dev/null && echo online || echo of
 #	echo "No internet suitable  connection"
 #	exit
 #fi
-# Set the Ubuntu user
-UBUNTU=george
+# Set the Ubuntu user or the name of the user
+# you are using to create this. I used ubuntu
+# as this is the default user on the ubuntu aws
+# instance
+
+UBUNTU=ubuntu
+
 # Check if nginx is already installed
 echo "Checking to see if nginx is installed..."
 is_nginx_installed=$(dpkg -l 2> /dev/null | grep -io nginx)
