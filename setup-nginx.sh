@@ -127,6 +127,9 @@ then
 			</html>" | tee /home/$UBUNTU/public_html/index.html &> /dev/null && echo 'Index.html created!' || echo 'Error while creating the index.html file' || exit
 		# Now we reload the nginx server with the new configuration
 		echo ""
+		echo "Change ownership of the public_html folder and contents"
+		sudo chown "$UBUNTU":"$UBUNTU" /home/"$UBUNTU"/public_html/index.html
+		echo ""
 		echo 'Reloading the nginx server with the new config...'
 		echo ""
 		# Test the configuratin file for errors
