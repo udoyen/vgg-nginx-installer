@@ -1,7 +1,14 @@
 #! /usr/bin/env bash
-set -x
-#set -e
-#set -u
+
+################################################################
+# Use and modify but please kindly acknowledge the writer of   #
+# of this script. George Udosen                                #
+# NOTE: that it should not be used in production settings as it#
+# was created for testing nginx installation in development    #
+# environment                                                  #
+################################################################
+set -e
+set -u
 
 # Check if there is a network
 network_state=$(ping -q -w1 -c1 google.com &>/dev/null && echo online || echo offline)
@@ -15,8 +22,8 @@ network_state=$(ping -q -w1 -c1 google.com &>/dev/null && echo online || echo of
 UBUNTU=george
 # Check if nginx is already installed
 echo "Checking to see if nginx is installed..."
-is_nginx_installed=$(sudo dpkg -l 2> /dev/null | grep -io nginx)
-is_nginx_installed_2=$(sudo service nginx status 2> /dev/null | grep -io nginx)
+is_nginx_installed=$(dpkg -l 2> /dev/null | grep -io nginx)
+is_nginx_installed_2=$(service nginx status 2> /dev/null | grep -io nginx)
 
 if [[ -z  "$is_nginx_installed" || -z "$is_nginx_installed_2" ]]
 then
@@ -156,14 +163,10 @@ then
 	fi
 
 else
-	if [[ nginx =~ $is_nginx_installed && running =~ $is_nginx_installed_2 ]]
-	then
 		echo ""
 		echo "Nginx is already installed!"
 		echo "Please kindly remove it with the following commands: 'sudo apt purge nginx'!"
 		echo "Run this script again!"
 		exit
-	fi
-	exit
 fi
 
