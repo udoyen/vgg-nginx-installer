@@ -4,7 +4,7 @@
 2. Make script executable with the commands:
     - ```chmod +x setup-nginx.sh```
 3. Run the script from the uploaded location:
-    - ```./setup-nginx.sh```
+    - ```sudo ./setup-nginx.sh```
 
 
 ### Important Information
