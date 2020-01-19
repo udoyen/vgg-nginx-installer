@@ -128,7 +128,7 @@ then
 		# Now we reload the nginx server with the new configuration
 		echo ""
 		echo "Change ownership of the public_html folder and contents"
-		sudo chown "$UBUNTU":"$UBUNTU" /home/"$UBUNTU"/public_html/index.html
+		sudo chown -R "$UBUNTU":"$UBUNTU" /home/"$UBUNTU"/public_html/index.html
 		echo ""
 		echo 'Reloading the nginx server with the new config...'
 		echo ""
