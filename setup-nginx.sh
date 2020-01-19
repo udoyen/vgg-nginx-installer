@@ -16,8 +16,9 @@ UBUNTU=ubuntu
 # Check if nginx is already installed
 echo "Checking to see if nginx is installed..."
 is_nginx_installed=$(sudo dpkg -l 2> /dev/null | grep -io nginx)
+is_nginx_installed_2=$(sudo service nginx status 2> /dev/null | grep -io nginx)
 
-if [[ -z  "$is_nginx_installed" ]]
+if [[ -z  "$is_nginx_installed" || -z "$is_nginx_installed_2" ]]
 then
 
 	echo ""
@@ -41,7 +42,10 @@ then
 
 	# update the sources.list
 	echo 'Adding entry to sources.list file...'
-	echo -e "# Nginx entry \ndeb http://nginx.org/packages/$UBUNTU bionic nginx\ndeb-src http://nginx.org/packages/$UBUNTU bionic nginx" | sudo tee -a /etc/apt/sources.list &> /dev/null && echo 'sources.list file updated!' || echo 'Error updating the sources.list file!' || exit
+	if [[ ! $(grep -io nginx /etc/apt/sources.list) ]]
+	then
+		echo -e "# Nginx entry \ndeb http://nginx.org/packages/ubuntu bionic nginx\ndeb-src http://nginx.org/packages/ubuntu bionic nginx" | sudo tee -a /etc/apt/sources.list &> /dev/null && echo 'sources.list file updated!' || echo 'Error updating the sources.list file!' || exit
+	fi
 
 	# Update and install the server
 	echo 'Updating apt package list...'
@@ -149,7 +153,7 @@ then
 	fi
 
 else
-	if [[ nginx =~ $is_nginx_installed ]]
+	if [[ nginx =~ $is_nginx_installed && running =~ $is_nginx_installed_2 ]]
 	then
 		echo ""
 		echo "Nginx is already installed!"
