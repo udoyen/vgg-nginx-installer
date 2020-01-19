@@ -122,6 +122,9 @@ then
 		then
 			sudo nginx -s reload
 			echo ""
+			echo "Starting Nginx server..."
+			sudo service nginx start
+			echo ""
 			echo "Nginx is now installed!"
 			echo ""
 			echo "Open a browser and and type your aws instance external ip address"
