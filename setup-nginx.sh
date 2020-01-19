@@ -12,7 +12,7 @@ network_state=$(ping -q -w1 -c1 google.com &>/dev/null && echo online || echo of
 #	exit
 #fi
 # Set the Ubuntu user
-UBUNTU=ubuntu
+UBUNTU=george
 # Check if nginx is already installed
 echo "Checking to see if nginx is installed..."
 is_nginx_installed=$(sudo dpkg -l 2> /dev/null | grep -io nginx)
@@ -83,7 +83,7 @@ then
 		echo "creating the /home/$UBUNTU/public_html folder to serve content"
 		if [[ ! -d /home/$UBUNTU/public_html ]]
 		then 
-			sudo -H mkdir -p /home/$UBUNTU/public_html
+			mkdir -p /home/$UBUNTU/public_html
 		else 
 			echo ""
 			echo 'File already exists so moving forward!'
@@ -94,23 +94,23 @@ then
 
 			<html>
 			<head>
-			  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+			  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>
 			  <title>Spoon-Knife</title>
-			  <LINK href="styles.css" rel="stylesheet" type="text/css">
+			  
 			</head>
 
-				<body>
+			<body>
 
-					<!-- Feel free to change this text here -->
-					<p>
-					  VENTURE GARDEN GROUP
-					</p>
-					<p>
-					  Made with love...
-					</p>
+			<!-- Feel free to change this text here -->
+			<p>
+			  VENTURE GARDEN GROUP
+			</p>
+			<p>
+			  Made with love...
+			</p>
 
-				</body>
-			</html>" | sudo tee /home/$UBUNTU/public_html/index.html &> /dev/null && echo 'Index.html created!' || echo 'Error while creating the index.html file' || sudo rm -rf /home/$UBUNTU/public_html || exit
+			</body>
+			</html>" | tee /home/$UBUNTU/public_html/index.html &> /dev/null && echo 'Index.html created!' || echo 'Error while creating the index.html file' || exit
 		# Now we reload the nginx server with the new configuration
 		echo ""
 		echo 'Reloading the nginx server with the new config...'
@@ -163,13 +163,4 @@ else
 	fi
 	exit
 fi
-#else
-#	echo ""
-#	echo "Please an internet connectin is needed to install nginx"
-#	exit
-#fi
 
-
-
-
-	
