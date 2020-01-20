@@ -9,7 +9,6 @@
 # environment                                                  #
 ################################################################
 
-set -e
 set -u
 
 # Check if there is a network
