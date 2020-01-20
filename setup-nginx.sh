@@ -58,7 +58,9 @@ then
 	echo 'Adding entry to sources.list file...'
 	if [[ ! $(grep -io nginx /etc/apt/sources.list) ]]
 	then
-		echo -e "# Nginx entry \ndeb http://nginx.org/packages/ubuntu bionic nginx\ndeb-src http://nginx.org/packages/ubuntu bionic nginx" | sudo tee -a /etc/apt/sources.list &> /dev/null && echo 'sources.list file updated!' || echo 'Error updating the sources.list file!' || exit
+		echo -e "# Nginx entry \ndeb http://nginx.org/packages/ubuntu bionic nginx\ndeb-src http://nginx.org/packages/ubuntu bionic nginx" | \ 
+		sudo tee -a /etc/apt/sources.list &> /dev/null && echo 'sources.list file updated!' \ 
+		|| echo 'Error updating the sources.list file!' || exit
 	fi
 
 	# Update and install the server
@@ -92,7 +94,9 @@ then
 
 			 }
 
-		      }" | sudo tee server1.conf &> /dev/null && echo 'New file server1.conf created!' || echo 'Error creating the new config file!' || sed -i.bak '/^\#\s*Nginx\s*entry/,$d' /etc/apt/sources.list || exit
+		      }" | sudo tee server1.conf &> /dev/null && echo 'New file server1.conf created!' ||  \
+			  echo 'Error creating the new config file!' || sed -i.bak '/^\#\s*Nginx\s*entry/,$d' /etc/apt/sources.list || \
+			  exit
 		echo ""
 		echo "creating the /home/$UBUNTU/public_html folder to serve content"
 		if [[ ! -d /home/$UBUNTU/public_html ]]
@@ -124,7 +128,8 @@ then
 			</p>
 
 			</body>
-			</html>" | tee /home/$UBUNTU/public_html/index.html &> /dev/null && echo 'Index.html created!' || echo 'Error while creating the index.html file' || exit
+			</html>" | tee /home/$UBUNTU/public_html/index.html &> /dev/null && echo 'Index.html created!' || \
+				echo 'Error while creating the index.html file' || exit
 		# Now we reload the nginx server with the new configuration
 		echo ""
 		echo "Change ownership of the public_html folder and contents"
@@ -160,7 +165,10 @@ then
 			sudo mv /etc/nginx/conf.d/default.conf.backup /etc/nginx/conf.d/default.conf
 			echo ""
 			echo 'Reloading the server...'
-			sudo nginx -s reload		
+			sudo nginx -s reload	
+			echo ""
+			echo "Restarting the server..."
+			sudo service nginx start
 			exit
 		fi
 	else
