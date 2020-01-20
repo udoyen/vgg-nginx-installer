@@ -96,12 +96,12 @@ then
 		echo "creating the /home/$UBUNTU/public_html folder to serve content"
 		if [[ ! -d /home/$UBUNTU/public_html ]]
 		then 
+			echo 'Creating a sample index.html file with content in it!'
 			mkdir -p /home/$UBUNTU/public_html
 		else 
-			echo "#################################################"
-			echo 'File already exists so moving forward!'
+			echo "#############################################"
+			echo 'Index.html file already exists so moving forward!'
 		fi
-		echo 'Creating a sample index.html file with content in it!'
 		echo "#################################################"
 		echo "<!DOCTYPE html>
 
