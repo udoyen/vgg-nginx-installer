@@ -113,7 +113,7 @@ then
 			<html>
 			<head>
 			  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>
-			  <title>Spoon-Knife</title>
+			  <title>Virtual Internship Program</title>
 			  
 			</head>
 
