@@ -35,7 +35,7 @@ is_nginx_installed_2=$(service nginx status 2> /dev/null | grep -io nginx)
 if [[ -z  "$is_nginx_installed" || -z "$is_nginx_installed_2" ]]
 then
 
-	echo ""
+	echo "#################################################"
 	echo "Nginx not installed moving forward!"
 	# Setup the signing keys for the nginx server
 	echo 'Getting the nginx signing key...'
@@ -78,7 +78,7 @@ then
 		echo 'Changing into the nginx configuration folder...'
 		cd /etc/nginx/conf.d
 		# Rename the default config file
-		echo ""
+		echo "#################################################"
 		echo 'Rename the default config file'
 		sudo mv default.conf default.conf.backup
 		# Create a new config file
@@ -93,17 +93,17 @@ then
 			 }
 
 		      }" | sudo tee server1.conf &> /dev/null && echo 'New file server1.conf created!' || echo 'Error creating the new config file!' || sed -i.bak '/^\#\s*Nginx\s*entry/,$d' /etc/apt/sources.list || exit
-		echo ""
+		echo "#################################################"
 		echo "creating the /home/$UBUNTU/public_html folder to serve content"
 		if [[ ! -d /home/$UBUNTU/public_html ]]
 		then 
 			mkdir -p /home/$UBUNTU/public_html
 		else 
-			echo ""
+			echo "#################################################"
 			echo 'File already exists so moving forward!'
 		fi
 		echo 'Creating a sample index.html file with content in it!'
-		echo ""
+		echo "#################################################"
 		echo "<!DOCTYPE html>
 
 			<html>
@@ -126,24 +126,24 @@ then
 			</body>
 			</html>" | tee /home/$UBUNTU/public_html/index.html &> /dev/null && echo 'Index.html created!' || echo 'Error while creating the index.html file' || exit
 		# Now we reload the nginx server with the new configuration
-		echo ""
+		echo "#################################################"
 		echo "Change ownership of the public_html folder and contents"
 		sudo chown -R "$UBUNTU":"$UBUNTU" /home/"$UBUNTU"/public_html/index.html
-		echo ""
+		echo "#################################################"
 		echo 'Reloading the nginx server with the new config...'
-		echo ""
+		echo "#################################################"
 		# Test the configuratin file for errors
 		echo 'Testing new nginx configuration...'
 		nginx_state=$(sudo nginx -t &> /dev/null && printf "Valid\n" || printf "Error\n")
 		if [[ Valid =~ $nginx_state ]]
 		then
 			sudo nginx -s reload
-			echo ""
+			echo "#################################################"
 			echo "Starting Nginx server..."
 			sudo service nginx start
-			echo ""
+			echo "#################################################"
 			echo "Nginx is now installed!"
-			echo ""
+			echo "#################################################"
 			echo "Open a browser and and type your aws instance external ip address"
 			echo "And you should see your default index.html page"
 		else
@@ -153,15 +153,15 @@ then
 			# Remove the server1.conf and use the old default
 			if [[ -f /etc/nginx/conf.d/server1.conf ]]
 			then
-				echo ""
+				echo "################################################"
 				echo 'Removing the new config file...'
 				sudo rm -rf /etc/nginx/conf.d/server1.conf
 			fi
 			sudo mv /etc/nginx/conf.d/default.conf.backup /etc/nginx/conf.d/default.conf
-			echo ""
+			echo "#################################################"
 			echo 'Reloading the server...'
 			sudo nginx -s reload	
-			echo ""
+			echo "#################################################"
 			echo "Restarting the server..."
 			sudo service nginx start
 			exit
@@ -169,14 +169,14 @@ then
 	else
 		if [[ dead =~ $state ]]
 		then
-			echo ""
+			echo "#################################################"
 			echo "The server isn't running, please check the nginx logs!"
 			exit 
 		fi
 	fi
 
 else
-		echo ""
+		echo "#################################################################"
 		echo "Nginx is already installed!"
 		echo "Please kindly remove it with the following commands: 'sudo apt purge nginx'!"
 		echo "Run this script again!"
