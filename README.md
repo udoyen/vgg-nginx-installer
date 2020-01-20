@@ -10,3 +10,9 @@
 ### Important Information
 
 Please improve and leave a comment and note only preliminary testing has been done so ***don't use in a production setting***.
+
+
+### Requirements
+
+1. AWS EC2 Ubuntu Instance
+2. Adminstrative Access
