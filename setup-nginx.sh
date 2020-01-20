@@ -59,8 +59,7 @@ then
 	if [[ ! $(grep -io nginx /etc/apt/sources.list) ]]
 	then
 		echo -e "# Nginx entry \ndeb http://nginx.org/packages/ubuntu bionic nginx\ndeb-src http://nginx.org/packages/ubuntu bionic nginx" | \ 
-		sudo tee -a /etc/apt/sources.list &> /dev/null && echo 'sources.list file updated!' \ 
-		|| echo 'Error updating the sources.list file!' || exit
+		sudo tee -a /etc/apt/sources.list &> /dev/null && echo 'sources.list file updated!' || echo 'Error updating the sources.list file!' || exit
 	fi
 
 	# Update and install the server
