@@ -1,3 +1,4 @@
+# Bash Script to Install Nginx Server on A Compute Instance on AWS
 ## HOW TO USE THIS SCRIPT
 
 1. Upload script to your aws ec2 instance
